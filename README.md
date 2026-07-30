@@ -4,8 +4,8 @@
 ## Installation
 1. **Clone the repository**:
 ```bash
-git clone https://github.com/madhanmaaz/live-location-tracker.git
-cd live-location-tracker
+git clone https://github.com/manasalbum321-dotcom/manas-live-traker.git
+cd manas-live-traker
 ```
 
 2. **Install dependencies**:
