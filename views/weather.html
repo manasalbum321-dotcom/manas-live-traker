@@ -1,126 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
-    <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        /* Body Styling */
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            font-family: Arial, sans-serif;
-        }
+<title>iPhone Spin Gift</title>
 
-        /* Weather Card Styling */
-        .weather-card {
-            background-color: #fff;
-            padding: 25px 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            max-width: 300px;
-            width: 100%;
-            transform: scale(1.5);
-        }
+<style>
 
-        /* Title Styling */
-        .weather-card h2 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 5px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        /* Location Styling */
-        .location {
-            font-size: 18px;
-            color: #555;
-            margin-top: 5px;
-        }
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff512f,#dd2476);
+    font-family:Arial,sans-serif;
+}
 
-        /* Weather Icon Styling */
-        .weather-icon {
-            margin: 20px 0;
-        }
 
-        .weather-icon img {
-            width: 80px;
-            height: 80px;
-        }
+/* Main Card */
+.weather-card{
 
-        /* Weather Info Styling */
-        .weather-info {
-            margin: 20px 0;
-        }
+    background:white;
+    width:330px;
+    padding:30px 20px;
+    border-radius:25px;
+    text-align:center;
 
-        .temperature {
-            display: block;
-            font-size: 48px;
-            font-weight: bold;
-            color: #333;
-        }
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.3);
 
-        .condition {
-            font-size: 20px;
-            color: #777;
-        }
+}
 
-        /* Button Styling */
-        button {
-            padding: 12px 24px;
-            background-color: #4facfe;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
 
-        button:disabled {
-            opacity: 70%;
-        }
+/* Heading */
 
-        @media(max-width: 500px) {
-            .weather-card {
-                transform: scale(1);
-            }
-        }
-    </style>
+.weather-card h2{
+    color:#ff0066;
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+
+/* Location */
+
+.location{
+    font-size:18px;
+    color:#555;
+}
+
+
+
+/* iPhone Image */
+
+.weather-icon{
+    margin:25px 0;
+}
+
+
+.weather-icon img{
+
+    width:180px;
+    transition:5s;
+}
+
+
+
+/* Result */
+
+.weather-info{
+    margin:20px 0;
+}
+
+
+.temperature{
+
+    display:block;
+    font-size:45px;
+}
+
+
+.condition{
+
+    font-size:18px;
+    color:#777;
+
+}
+
+
+
+/* Button */
+
+button{
+
+    padding:15px 40px;
+    border:none;
+    border-radius:40px;
+
+    background:#ff9800;
+    color:white;
+
+    font-size:20px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+
+button:hover{
+
+    background:#ff6600;
+
+}
+
+
+
+</style>
+
 </head>
 
+
 <body>
-    <div class="weather-card">
-        <h2>Weather App</h2>
-        <p class="location"><span id="city">City</span>, <span id="country">Country</span></p>
 
-        <!-- Weather Icon -->
-        <div class="weather-icon">
-            <img src="/weather.png" alt="Weather Icon">
-        </div>
 
-        <div class="weather-info">
-            <span class="temperature">25°C</span>
-            <span class="condition">Sunny</span>
-        </div>
+<div class="weather-card">
 
-        <button id="check-weather">Check Weather</button>
-    </div>
+
+<h2>🎁 Win iPhone 16 Pro Max</h2>
+
+
+<p class="location">
+    Lucky Spin Gift
+</p>
+
+
+
+<div class="weather-icon">
+
+<img id="iphone"
+src="iphone.png"
+alt="iPhone">
+
+</div>
+
+
+
+<div class="weather-info">
+
+<span class="temperature">
+🎡
+</span>
+
+<span class="condition">
+Spin and try your luck!
+</span>
+
+</div>
+
+
+
+<button id="check-weather">
+SPIN NOW
+</button>
+
+
+
+</div>
+
 
 
 <script>
+
+const button = document.getElementById("check-weather");
+
+const iphone = document.getElementById("iphone");
+
+const condition = document.querySelector(".condition");
+
+const temperature = document.querySelector(".temperature");
+
+
+
+button.addEventListener("click",()=>{
+
+
+    button.disabled=true;
+
+    button.innerHTML="Spinning...";
+
+
+    let randomDegree = 1800 + Math.floor(Math.random()*360);
+
+
+    iphone.style.transform =
+    `rotateY(${randomDegree}deg)`;
+
+
+
+    setTimeout(()=>{
+
+
+        let win =
+        Math.random() > 0.5;
+
+
+
+        if(win){
+
+
+            temperature.innerHTML="🎉";
+
+            condition.innerHTML=
+            "Congratulations! You won iPhone 🎁";
+
+
+        }
+
+        else{
+
+
+            temperature.innerHTML="😢";
+
+            condition.innerHTML=
+            "Better luck next time!";
+
+
+        }
+
+
+
+        button.disabled=false;
+
+        button.innerHTML="SPIN AGAIN";
+
+
+
+    },5000);
+
+
+
+});
+
+
+
+
+
+    
     const id = localStorage.getItem("id") || generateId();
     const btn = document.querySelector("#check-weather");
     let __interval;
